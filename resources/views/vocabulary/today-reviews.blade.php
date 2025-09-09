@@ -33,17 +33,6 @@
                             </span>
                         </div>
 
-                        <div class="mb-4 space-y-2">
-                            <p class="text-gray-700">
-                                <strong>Nghĩa:</strong> {{ $review->vocabularyWord->meaning }}
-                            </p>
-                            @if ($review->vocabularyWord->example)
-                                <p class="text-gray-600 text-sm italic">
-                                    <strong>Ví dụ:</strong> "{{ $review->vocabularyWord->example }}"
-                                </p>
-                            @endif
-                        </div>
-
                         <form action="{{ route('vocabulary.review', $review->vocabularyWord) }}" method="POST" class="flex justify-end">
                             @csrf
                             <button type="submit"

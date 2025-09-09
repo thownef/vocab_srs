@@ -73,18 +73,6 @@
                 @enderror
             </div>
 
-            <div>
-                <label for="example" class="block text-sm font-medium text-gray-700 mb-2">
-                    Ví dụ (tùy chọn)
-                </label>
-                <textarea id="example" name="example" rows="3"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Ví dụ: She achieved her goal of becoming a doctor.">{{ old('example', $word->example) }}</textarea>
-                @error('example')
-                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
             <div class="flex justify-between">
                 <button type="button" onclick="if(confirm('Bạn có chắc chắn muốn xóa từ này?')) document.getElementById('delete-form').submit();"
                     class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">

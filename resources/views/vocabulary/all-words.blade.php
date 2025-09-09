@@ -15,9 +15,6 @@
                         <label for="search" class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-search mr-1"></i>Tìm kiếm
                         </label>
-                        <input type="text" id="search" name="search" value="{{ request('search') }}"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="Tìm theo từ, nghĩa, ví dụ...">
                     </div>
 
                     <div>
@@ -83,9 +80,6 @@
                                 Loại từ
                             </th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Nghĩa
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Số lần ôn
                             </th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -115,12 +109,6 @@
                                         </span>
                                     @else
                                         <span class="text-gray-400 text-sm">-</span>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $word->meaning }}</div>
-                                    @if ($word->example)
-                                        <div class="text-sm text-gray-500 italic mt-1">"{{ $word->example }}"</div>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">

@@ -20,7 +20,6 @@ class VocabularyService
                 'part_of_speech' => $data['part_of_speech'] ?? null,
                 'pronunciation' => $data['pronunciation'] ?? null,
                 'meaning' => $data['meaning'],
-                'example' => $data['example'] ?? null,
                 'review_count' => 0,
                 'next_review_date' => $today,
                 'created_date' => $today,
