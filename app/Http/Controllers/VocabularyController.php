@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateVocabularyRequest;
 use App\Models\ReviewSchedule;
 use App\Models\VocabularyWord;
 use App\Services\VocabularyService;
+use Carbon\Carbon;
 
 class VocabularyController extends Controller
 {
@@ -50,7 +51,19 @@ class VocabularyController extends Controller
             ->where('is_completed', false)
             ->get();
 
-        return view('vocabulary.today-reviews', compact('todayReviews'));
+        $firstCreatedDate = VocabularyWord::min('created_date');
+        $base = $firstCreatedDate
+            ? Carbon::parse($firstCreatedDate)->startOfDay()
+            : today()->startOfDay();
+
+        $groupedByDay = $todayReviews
+            ->groupBy(function ($review) use ($base) {
+                $created = $review->vocabularyWord->created_date->copy()->startOfDay();
+                return max(1, $base->diffInDays($created) + 1);
+            })
+            ->sortKeys();
+
+        return view('vocabulary.today-reviews', compact('groupedByDay'));
     }
 
     public function markAsReviewed(VocabularyWord $vocabulary)

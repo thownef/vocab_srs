@@ -7,50 +7,57 @@
             Ôn tập hôm nay
         </h1>
 
-        @if ($todayReviews->count() > 0)
+        @if (($groupedByDay ?? collect())->isNotEmpty())
             <div class="space-y-4">
-                @foreach ($todayReviews as $review)
-                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                        <div class="flex justify-between items-start mb-3">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">
-                                    {{ $review->vocabularyWord->word }}
-                                    @if ($review->vocabularyWord->pronunciation)
-                                        <span class="text-gray-500 text-sm ml-2">[{{ $review->vocabularyWord->pronunciation }}]</span>
-                                    @endif
-                                </h3>
-                                <div class="flex items-center gap-2 text-sm text-gray-500">
-                                    @if ($review->vocabularyWord->part_of_speech)
-                                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
-                                            {{ $review->vocabularyWord->getPartOfSpeechLabel() }}
-                                        </span>
-                                    @endif
-                                    <span>Lần ôn thứ {{ $review->review_round }}</span>
-                                </div>
+                @foreach ($groupedByDay as $dayNumber => $reviews)
+                    <details class="border border-gray-200 rounded-lg">
+                        <summary class="cursor-pointer select-none px-4 py-3 flex items-center justify-between">
+                            <div class="text-lg font-semibold text-gray-800">
+                                Ôn tập ngày {{ $dayNumber }}
                             </div>
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                                {{ $review->review_round }}/6
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                {{ $reviews->count() }} từ
                             </span>
+                        </summary>
+
+                        <div class="p-4 space-y-4">
+                            @foreach ($reviews as $review)
+                                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <div>
+                                            <h3 class="text-xl font-bold text-gray-800">
+                                                {{ $review->vocabularyWord->word }}
+                                                @if ($review->vocabularyWord->pronunciation)
+                                                    <span class="text-gray-500 text-sm ml-2">[{{ $review->vocabularyWord->pronunciation }}]</span>
+                                                @endif
+                                            </h3>
+                                            <div class="flex items-center gap-2 text-sm text-gray-500">
+                                                @if ($review->vocabularyWord->part_of_speech)
+                                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                                                        {{ $review->vocabularyWord->getPartOfSpeechLabel() }}
+                                                    </span>
+                                                @endif
+                                                <span>Lần ôn thứ {{ $review->review_round }}</span>
+                                            </div>
+                                        </div>
+                                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                                            {{ $review->review_round }}/6
+                                        </span>
+                                    </div>
+
+                                    <form action="{{ route('vocabulary.review', $review->vocabularyWord) }}" method="POST" class="flex justify-end">
+                                        @csrf
+                                        <button type="submit"
+                                            class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                                            <i class="fas fa-check mr-2"></i>
+                                            Đã nhớ
+                                        </button>
+                                    </form>
+                                </div>
+                            @endforeach
                         </div>
-
-                        <form action="{{ route('vocabulary.review', $review->vocabularyWord) }}" method="POST" class="flex justify-end">
-                            @csrf
-                            <button type="submit"
-                                class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                                <i class="fas fa-check mr-2"></i>
-                                Đã nhớ
-                            </button>
-                        </form>
-                    </div>
+                    </details>
                 @endforeach
-            </div>
-
-            <div class="mt-6 p-4 bg-green-50 rounded-lg">
-                <p class="text-green-800 text-sm">
-                    <i class="fas fa-lightbulb mr-2"></i>
-                    <strong>Mẹo:</strong> Hãy cố gắng nhớ nghĩa của từ trước khi nhấn "Đã nhớ".
-                    Việc này sẽ giúp bạn ghi nhớ từ vựng hiệu quả hơn!
-                </p>
             </div>
         @else
             <div class="text-center py-12">
