@@ -7,7 +7,7 @@
                 <i class="fas fa-edit text-orange-600 mr-2"></i>
                 Chỉnh sửa từ vựng
             </h1>
-            <a href="{{ route('vocabulary.all-words') }}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+            <a href="{{ route('vocabulary.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
                 <i class="fas fa-arrow-left mr-2"></i>
                 Quay lại
             </a>
@@ -81,7 +81,7 @@
                 </button>
 
                 <div class="space-x-2">
-                    <a href="{{ route('vocabulary.all-words') }}" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600">
+                    <a href="{{ route('vocabulary.index') }}" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600">
                         Hủy
                     </a>
                     <button type="submit"

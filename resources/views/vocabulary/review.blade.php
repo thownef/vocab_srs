@@ -19,7 +19,7 @@
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                     {{ $reviews->count() }} từ
                                 </span>
-                                <form action="{{ route('vocabulary.review.bulk') }}" method="POST" class="m-0 p-0">
+                                <form action="{{ route('vocabulary.markGroup') }}" method="POST" class="m-0 p-0">
                                     @csrf
                                     @foreach ($reviews as $review)
                                         <input type="hidden" name="word_ids[]" value="{{ $review->vocabulary_word_id }}">
@@ -57,7 +57,7 @@
                                         </span>
                                     </div>
 
-                                    <form action="{{ route('vocabulary.review', $review->vocabularyWord) }}" method="POST" class="flex justify-end">
+                                    <form action="{{ route('vocabulary.mark', $review->vocabularyWord) }}" method="POST" class="flex justify-end">
                                         @csrf
                                         <button type="submit"
                                             class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">

@@ -8,22 +8,38 @@ use App\Http\Requests\UpdateVocabularyRequest;
 use App\Models\ReviewSchedule;
 use App\Models\VocabularyWord;
 use App\Services\VocabularyService;
-use Carbon\Carbon;
 
 class VocabularyController extends Controller
 {
-    public function __construct(private VocabularyService $service) {}
+    public function __construct(private VocabularyService $vocabularyService)
+    {
+        $this->vocabularyService = $vocabularyService;
+    }
 
     public function index()
     {
         $partsOfSpeech = PartOfSpeech::options();
-        return view('vocabulary.index', compact('partsOfSpeech'));
+
+        $words = VocabularyWord::query()
+            ->search(request('search'))
+            ->partOfSpeech(request('part_of_speech'))
+            ->orderByDesc('created_at')
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('vocabulary.index', compact('words', 'partsOfSpeech'));
+    }
+
+    public function create()
+    {
+        $partsOfSpeech = PartOfSpeech::options();
+        return view('vocabulary.create', compact('partsOfSpeech'));
     }
 
     public function store(StoreVocabularyRequest $request)
     {
-        $this->service->create($request->validated());
-        return redirect()->route('vocabulary.index')->with('success', 'Từ mới đã được thêm!');
+        $this->vocabularyService->create($request->validated());
+        return redirect()->route('vocabulary.create')->with('success', 'Từ mới đã được thêm!');
     }
 
     public function edit(VocabularyWord $vocabulary)
@@ -35,16 +51,16 @@ class VocabularyController extends Controller
     public function update(UpdateVocabularyRequest $request, VocabularyWord $vocabulary)
     {
         $vocabulary->update($request->validated());
-        return redirect()->route('vocabulary.all-words')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('vocabulary.index')->with('success', 'Cập nhật thành công!');
     }
 
     public function destroy(VocabularyWord $vocabulary)
     {
         $vocabulary->delete();
-        return redirect()->route('vocabulary.all-words')->with('success', 'Đã xóa từ vựng!');
+        return redirect()->route('vocabulary.index')->with('success', 'Đã xóa từ vựng!');
     }
 
-    public function todayReviews()
+    public function review()
     {
         $todayReviews = ReviewSchedule::with('vocabularyWord')
             ->whereDate('review_date', today())
@@ -55,16 +71,16 @@ class VocabularyController extends Controller
             ->groupBy(fn($review) => $review->vocabularyWord->learning_day_number)
             ->sortKeys();
 
-        return view('vocabulary.today-reviews', compact('groupedByDay'));
+        return view('vocabulary.review', compact('groupedByDay'));
     }
 
-    public function markAsReviewed(VocabularyWord $vocabulary)
+    public function mark(VocabularyWord $vocabulary)
     {
-        $this->service->markReviewed($vocabulary);
-        return redirect()->route('vocabulary.today-reviews')->with('success', 'Đã hoàn thành ôn tập!');
+        $this->vocabularyService->markReviewed($vocabulary);
+        return redirect()->route('vocabulary.review')->with('success', 'Đã hoàn thành ôn tập!');
     }
 
-    public function markGroupReviewed()
+    public function markGroup()
     {
         $ids = collect(request('word_ids', []))
             ->filter(fn($v) => is_numeric($v))
@@ -73,28 +89,14 @@ class VocabularyController extends Controller
             ->values();
 
         if ($ids->isEmpty()) {
-            return redirect()->route('vocabulary.today-reviews')->with('success', 'Không có từ nào để cập nhật.');
+            return redirect()->route('vocabulary.review')->with('success', 'Không có từ nào để cập nhật.');
         }
 
         $words = VocabularyWord::whereIn('id', $ids)->get();
         foreach ($words as $word) {
-            $this->service->markReviewed($word);
+            $this->vocabularyService->markReviewed($word);
         }
 
-        return redirect()->route('vocabulary.today-reviews')->with('success', 'Đã hoàn thành ôn tập nhóm!');
-    }
-
-    public function allWords()
-    {
-        $partsOfSpeech = PartOfSpeech::options();
-
-        $words = VocabularyWord::query()
-            ->search(request('search'))
-            ->partOfSpeech(request('part_of_speech'))
-            ->orderByDesc('created_at')
-            ->paginate(15)
-            ->withQueryString();
-
-        return view('vocabulary.all-words', compact('words', 'partsOfSpeech'));
+        return redirect()->route('vocabulary.review')->with('success', 'Đã hoàn thành ôn tập nhóm!');
     }
 }
