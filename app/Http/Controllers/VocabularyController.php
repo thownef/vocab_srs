@@ -51,16 +51,8 @@ class VocabularyController extends Controller
             ->where('is_completed', false)
             ->get();
 
-        $firstCreatedDate = VocabularyWord::min('created_date');
-        $base = $firstCreatedDate
-            ? Carbon::parse($firstCreatedDate)->startOfDay()
-            : today()->startOfDay();
-
         $groupedByDay = $todayReviews
-            ->groupBy(function ($review) use ($base) {
-                $created = $review->vocabularyWord->created_date->copy()->startOfDay();
-                return max(1, $base->diffInDays($created) + 1);
-            })
+            ->groupBy(fn($review) => $review->vocabularyWord->learning_day_number)
             ->sortKeys();
 
         return view('vocabulary.today-reviews', compact('groupedByDay'));

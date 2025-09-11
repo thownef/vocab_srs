@@ -16,12 +16,14 @@ class VocabularyWord extends Model
         'review_count',
         'next_review_date',
         'created_date',
+        'learning_day_number',
     ];
 
     protected $casts = [
         'part_of_speech' => PartOfSpeech::class,
         'next_review_date' => 'date',
         'created_date' => 'date',
+        'learning_day_number' => 'integer',
     ];
 
     public function reviewSchedules()

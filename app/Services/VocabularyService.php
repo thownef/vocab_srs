@@ -15,6 +15,9 @@ class VocabularyService
         return DB::transaction(function () use ($data) {
             $today = today();
 
+            $existing = VocabularyWord::whereDate('created_date', $today)->value('learning_day_number');
+            $dayNumber = $existing ?? ((int) VocabularyWord::max('learning_day_number') + 1);
+
             $word = VocabularyWord::create([
                 'word' => $data['word'],
                 'part_of_speech' => $data['part_of_speech'] ?? null,
@@ -23,6 +26,7 @@ class VocabularyService
                 'review_count' => 0,
                 'next_review_date' => $today,
                 'created_date' => $today,
+                'learning_day_number' => $dayNumber,
             ]);
 
             ReviewSchedule::firstOrCreate([
