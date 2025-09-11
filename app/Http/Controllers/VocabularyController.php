@@ -72,6 +72,26 @@ class VocabularyController extends Controller
         return redirect()->route('vocabulary.today-reviews')->with('success', 'Đã hoàn thành ôn tập!');
     }
 
+    public function markGroupReviewed()
+    {
+        $ids = collect(request('word_ids', []))
+            ->filter(fn($v) => is_numeric($v))
+            ->map(fn($v) => (int) $v)
+            ->unique()
+            ->values();
+
+        if ($ids->isEmpty()) {
+            return redirect()->route('vocabulary.today-reviews')->with('success', 'Không có từ nào để cập nhật.');
+        }
+
+        $words = VocabularyWord::whereIn('id', $ids)->get();
+        foreach ($words as $word) {
+            $this->service->markReviewed($word);
+        }
+
+        return redirect()->route('vocabulary.today-reviews')->with('success', 'Đã hoàn thành ôn tập nhóm!');
+    }
+
     public function allWords()
     {
         $partsOfSpeech = PartOfSpeech::options();
