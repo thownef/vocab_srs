@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VocabularyController;
 
 Route::get('/', function () {
-    return redirect()->route('vocabulary.index');
+    return redirect()->route('vocabulary.create');
 });
 
-Route::prefix('vocabulary')->name('vocabulary.')->group(function () {
-    Route::get('today', [VocabularyController::class, 'todayReviews'])->name('today-reviews');
-    Route::post('review/bulk', [VocabularyController::class, 'markGroupReviewed'])->name('review.bulk');
-    Route::post('{vocabulary}/review', [VocabularyController::class, 'markAsReviewed'])->name('review');
-    Route::get('all', [VocabularyController::class, 'allWords'])->name('all-words');
+Route::prefix('vocabulary')->name('vocabulary.')->group(function (): void {
+    Route::get('review', [VocabularyController::class, 'review'])->name('review');
+    Route::post('mark-group', [VocabularyController::class, 'markGroup'])->name('markGroup');
+    Route::post('mark/{vocabulary}', [VocabularyController::class, 'mark'])->name('mark');
 
 });
 
-Route::resource('vocabulary', VocabularyController::class)->except(['show', 'create']);
+Route::resource('vocabulary', VocabularyController::class)->except(['show']);

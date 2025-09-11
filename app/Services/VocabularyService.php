@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\ReviewSchedule;
 use App\Models\VocabularyWord;
 use Illuminate\Support\Facades\DB;
 
@@ -29,12 +28,10 @@ class VocabularyService
                 'learning_day_number' => $dayNumber,
             ]);
 
-            ReviewSchedule::firstOrCreate([
-                'vocabulary_word_id' => $word->id,
-                'review_date' => $today,
-            ], [
-                'review_round' => 1,
-            ]);
+            $word->reviewSchedules()->firstOrCreate(
+                ['review_date' => $today],
+                ['review_round' => 1]
+            );
 
             return $word;
         });
@@ -52,19 +49,14 @@ class VocabularyService
 
             $word->update(['next_review_date' => $next]);
 
-            // Mark today's schedules complete (idempotent)
             $word->reviewSchedules()
                 ->whereDate('review_date', $today)
                 ->update(['is_completed' => true]);
 
-            // Avoid duplicate schedule for the same next date
-            ReviewSchedule::firstOrCreate([
-                'vocabulary_word_id' => $word->id,
-                'review_date' => $next,
-            ], [
-                // round 1 was created on create(); after first review, this becomes 2, etc.
-                'review_round' => $word->review_count + 1,
-            ]);
+            $word->reviewSchedules()->firstOrCreate(
+                ['review_date' => $next],
+                ['review_round' => $word->review_count + 1]
+            );
         });
     }
 }

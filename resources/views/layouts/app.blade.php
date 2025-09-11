@@ -16,13 +16,13 @@
                     Smart Repeat
                 </div>
                 <div class="space-x-4">
-                    <a href="{{ route('vocabulary.index') }}" class="hover:text-blue-200">
+                    <a href="{{ route('vocabulary.create') }}" class="hover:text-blue-200">
                         <i class="fas fa-plus mr-1"></i>Thêm từ mới
                     </a>
-                    <a href="{{ route('vocabulary.today-reviews') }}" class="hover:text-blue-200">
+                    <a href="{{ route('vocabulary.review') }}" class="hover:text-blue-200">
                         <i class="fas fa-calendar-day mr-1"></i>Ôn tập hôm nay
                     </a>
-                    <a href="{{ route('vocabulary.all-words') }}" class="hover:text-blue-200">
+                    <a href="{{ route('vocabulary.index') }}" class="hover:text-blue-200">
                         <i class="fas fa-list mr-1"></i>Tất cả từ vựng
                     </a>
                 </div>

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\PartOfSpeech;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class VocabularyWord extends Model
 {
@@ -46,7 +45,7 @@ class VocabularyWord extends Model
         return $query->where('part_of_speech', $pos);
     }
 
-    public function getPartOfSpeechLabel(): ?string
+    public function getPartOfSpeechLabel()
     {
         return $this->part_of_speech
             ? PartOfSpeech::options()[$this->part_of_speech->value] ?? $this->part_of_speech->value
