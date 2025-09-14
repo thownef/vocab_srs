@@ -57,14 +57,25 @@
                                         </span>
                                     </div>
 
-                                    <form action="{{ route('vocabulary.mark', $review->vocabularyWord) }}" method="POST" class="flex justify-end">
-                                        @csrf
-                                        <button type="submit"
-                                            class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                                            <i class="fas fa-check mr-2"></i>
-                                            Đã nhớ
-                                        </button>
-                                    </form>
+                                    <div class="flex justify-end gap-2">
+                                        <form action="{{ route('vocabulary.markForgotten', $review->vocabularyWord) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                                                onclick="return confirm('Bạn có chắc chắn đã quên từ này? Từ sẽ được ôn lại từ đầu.')">
+                                                <i class="fas fa-times mr-2"></i>
+                                                Quên
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('vocabulary.mark', $review->vocabularyWord) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                                                <i class="fas fa-check mr-2"></i>
+                                                Đã nhớ
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>

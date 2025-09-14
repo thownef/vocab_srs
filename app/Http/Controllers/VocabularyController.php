@@ -80,6 +80,12 @@ class VocabularyController extends Controller
         return redirect()->route('vocabulary.review')->with('success', 'Đã hoàn thành ôn tập!');
     }
 
+    public function markForgotten(VocabularyWord $vocabulary)
+    {
+        $this->vocabularyService->markForgotten($vocabulary);
+        return redirect()->route('vocabulary.review')->with('success', 'Đã đánh dấu quên từ, sẽ ôn lại từ đầu!');
+    }
+
     public function markGroup()
     {
         $ids = collect(request('word_ids', []))

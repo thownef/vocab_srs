@@ -59,4 +59,26 @@ class VocabularyService
             );
         });
     }
+
+    public function markForgotten(VocabularyWord $word): void
+    {
+        DB::transaction(function () use ($word) {
+            $today = today();
+
+            $index = min($word->review_count, count($this->intervals) - 1);
+
+            $next = $today->copy()->addDays($this->intervals[$index]);
+
+            $word->update(['next_review_date' => $next]);
+
+            $word->reviewSchedules()
+                ->whereDate('review_date', $today)
+                ->update(['is_completed' => true]);
+
+            $word->reviewSchedules()->firstOrCreate(
+                ['review_date' => $next],
+                ['review_round' => $word->review_count + 1]
+            );
+        });
+    }
 }
