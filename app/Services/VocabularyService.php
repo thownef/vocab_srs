@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class VocabularyService
 {
-    private array $intervals = [0, 1, 2, 4, 8, 15, 30, 90];
+    private array $intervals = [0, 1, 3, 7, 14, 30, 90];
 
     public function create(array $data): VocabularyWord
     {
