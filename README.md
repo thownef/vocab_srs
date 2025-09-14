@@ -11,25 +11,14 @@
 Smart Repeat is a web application designed to help users learn English effectively using the **Spaced Repetition** method. Built with Laravel framework, it features a beautiful and user-friendly interface for managing vocabulary learning.
 
 ## 🎯 Key Features
-## �� Key Features
-
-### 📝 Vocabulary Management
 - **Add New Words**: Input vocabulary with meanings, pronunciation, and examples
 - **Edit & Delete**: Modify or remove existing vocabulary entries
 - **Search & Filter**: Find words by keyword or filter by part of speech
 - **Progress Tracking**: Monitor review count and next review dates
-
-### 🧠 Smart Review System
 - **Automatic Scheduling**: Uses spaced repetition algorithm for optimal learning
 - **Daily Reviews**: Shows words that need to be reviewed today
 - **Remember/Forgot**: Mark words as remembered or forgotten to adjust learning cycle
 - **Group Actions**: Mark multiple words at once for efficient review
-
-### 🎨 Enhanced Learning Experience
-- **Part of Speech**: Categorize words (noun, verb, adjective, etc.)
-- **Pronunciation Guide**: Add IPA pronunciation for better learning
-- **Rich Examples**: Include example sentences for context
-- **Beautiful Interface**: Clean, modern design with intuitive navigation
 
 ### 🧠 Spaced Repetition Algorithm
 The application uses a scientifically-proven review schedule:
