@@ -12,6 +12,7 @@ Route::prefix('vocabulary')->name('vocabulary.')->group(function (): void {
     Route::post('mark-group', [VocabularyController::class, 'markGroup'])->name('markGroup');
     Route::post('mark/{vocabulary}', [VocabularyController::class, 'mark'])->name('mark');
     Route::post('mark-forgotten/{vocabulary}', [VocabularyController::class, 'markForgotten'])->name('markForgotten');
+    Route::get('summary', [VocabularyController::class, 'summary'])->name('summary');
 });
 
 Route::resource('vocabulary', VocabularyController::class)->except(['show']);

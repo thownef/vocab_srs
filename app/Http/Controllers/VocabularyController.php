@@ -105,4 +105,46 @@ class VocabularyController extends Controller
 
         return redirect()->route('vocabulary.review')->with('success', 'Đã hoàn thành ôn tập nhóm!');
     }
+    public function summary()
+    {
+        $totalWords = VocabularyWord::count();
+
+        $countsByReview = VocabularyWord::query()
+            ->selectRaw('review_count, COUNT(*) as cnt')
+            ->groupBy('review_count')
+            ->pluck('cnt', 'review_count');
+
+        $zero = (int) ($countsByReview[0] ?? 0);
+        $one = (int) ($countsByReview[1] ?? 0);
+        $two = (int) ($countsByReview[2] ?? 0);
+        $three = (int) ($countsByReview[3] ?? 0);
+        $four = (int) ($countsByReview[4] ?? 0);
+
+        $sumZeroToFour = $zero + $one + $two + $three + $four;
+        $fivePlus = max(0, $totalWords - $sumZeroToFour);
+
+        $reviewLabels = [
+            'Chưa ôn (0)',
+            '1 lần',
+            '2 lần',
+            '3 lần',
+            '4 lần',
+            '5+ lần',
+        ];
+
+        $reviewData = [
+            $zero,
+            $one,
+            $two,
+            $three,
+            $four,
+            $fivePlus,
+        ];
+
+        return view('vocabulary.summary', compact(
+            'totalWords',
+            'reviewLabels',
+            'reviewData'
+        ));
+    }
 }
