@@ -75,11 +75,11 @@
             <ul class="text-sm text-blue-700 space-y-1">
                 <li>• Ngày 1: Học từ mới</li>
                 <li>• Ngày 1 (tối): Ôn lại lần 1</li>
-                <li>• Ngày 2: Ôn lại lần 2</li>
-                <li>• Ngày 4: Ôn lại lần 3</li>
-                <li>• Ngày 8: Ôn lại lần 4</li>
-                <li>• Ngày 15: Ôn lại lần 5</li>
-                <li>• Ngày 30: Ôn lại lần 6</li>
+                <li>• Ngày 3: Ôn lại lần 2</li>
+                <li>• Ngày 7: Ôn lại lần 3</li>
+                <li>• Ngày 14: Ôn lại lần 4</li>
+                <li>• Ngày 30: Ôn lại lần 5</li>
+                <li>• Ngày 90: Ôn lại lần 6</li>
             </ul>
         </div>
     </div>
