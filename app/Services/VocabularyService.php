@@ -50,7 +50,7 @@ class VocabularyService
             $word->update(['next_review_date' => $next]);
 
             $word->reviewSchedules()
-                ->whereDate('review_date', $today)
+                ->whereDate('review_date', '<=', $today)
                 ->update(['is_completed' => true]);
 
             $word->reviewSchedules()->firstOrCreate(
@@ -72,7 +72,7 @@ class VocabularyService
             $word->update(['next_review_date' => $next]);
 
             $word->reviewSchedules()
-                ->whereDate('review_date', $today)
+                ->whereDate('review_date', '<=', $today)
                 ->update(['is_completed' => true]);
 
             $word->reviewSchedules()->firstOrCreate(

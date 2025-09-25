@@ -63,7 +63,7 @@ class VocabularyController extends Controller
     public function review()
     {
         $todayReviews = ReviewSchedule::with('vocabularyWord')
-            ->whereDate('review_date', today())
+            ->whereDate('review_date', '<=', today())
             ->where('is_completed', false)
             ->get();
 
