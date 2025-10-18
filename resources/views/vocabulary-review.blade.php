@@ -80,16 +80,28 @@
                                                 @endif
                                                 <span>Lần ôn thứ {{ $review['review_round'] }}</span>
                                             </div>
-                                            <div class="mt-2 text-gray-700">
-                                                {{ $review['vocabulary_word']['meaning'] }}
-                                            </div>
                                         </div>
                                         <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
                                             {{ $review['review_round'] }}/6
                                         </span>
                                     </div>
 
-                                    <div class="flex justify-end gap-2">
+                                    <!-- Meaning section with toggle -->
+                                    <div class="mt-3">
+                                        <button 
+                                            onclick="document.getElementById('meaning-{{ $review['vocabulary_word_id'] }}').classList.toggle('hidden')"
+                                            class="text-blue-600 hover:text-blue-800 text-sm font-medium focus:outline-none">
+                                            <i class="fas fa-eye mr-1"></i>
+                                            Xem nghĩa
+                                        </button>
+                                        <div id="meaning-{{ $review['vocabulary_word_id'] }}" class="hidden mt-2 p-3 bg-gray-50 rounded-lg border">
+                                            <div class="text-gray-700">
+                                                <strong>Nghĩa:</strong> {{ $review['vocabulary_word']['meaning'] }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-end gap-2 mt-4">
                                         <button wire:click="markForgotten({{ $review['vocabulary_word_id'] }})"
                                             wire:confirm="Bạn có chắc chắn đã quên từ này? Từ sẽ được ôn lại từ đầu."
                                             class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50"
