@@ -1,7 +1,7 @@
 <div class="bg-white rounded-lg shadow-md p-6">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">
         <i class="fas fa-plus-circle text-blue-600 mr-2"></i>
-        Thêm từ vựng mới 1
+        Thêm từ vựng mới
     </h1>
 
     <form wire:submit.prevent="store" class="space-y-4">
