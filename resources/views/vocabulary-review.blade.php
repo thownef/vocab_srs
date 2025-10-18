@@ -7,10 +7,14 @@
     @if (!empty($groupedByDay))
         <div class="space-y-4">
             @foreach ($groupedByDay as $dayNumber => $reviews)
-                <div class="border border-gray-200 rounded-lg">
-                    <div class="cursor-pointer select-none px-4 py-3 flex items-center justify-between" wire:click="toggleSection({{ $dayNumber }})">
+                <div class="border border-gray-200 rounded-lg transition-all duration-200 hover:shadow-md">
+                    <div class="cursor-pointer select-none px-4 py-3 flex items-center justify-between" wire:click="toggleSection({{ $dayNumber }})"
+                        role="button" tabindex="0" aria-expanded="{{ $this->isSectionOpen($dayNumber) ? 'true' : 'false' }}"
+                        aria-controls="section-content-{{ $dayNumber }}" @keydown.enter="$wire.toggleSection({{ $dayNumber }})"
+                        @keydown.space.prevent="$wire.toggleSection({{ $dayNumber }})">
                         <div class="text-lg font-semibold text-gray-800">
-                            <i class="fas {{ in_array($dayNumber, $openSections) ? 'fa-chevron-down' : 'fa-chevron-right' }} mr-2 text-sm"></i>
+                            <i
+                                class="fas {{ $this->isSectionOpen($dayNumber) ? 'fa-chevron-down' : 'fa-chevron-right' }} mr-2 text-sm transition-transform duration-200"></i>
                             Ôn tập ngày {{ $dayNumber }}
                         </div>
                         <div class="flex items-center gap-3">
@@ -54,8 +58,9 @@
                         </div>
                     </div>
 
-                    @if (in_array($dayNumber, $openSections))
-                        <div class="p-4 space-y-4 border-t border-gray-200">
+                    @if ($this->isSectionOpen($dayNumber))
+                        <div class="p-4 space-y-4 border-t border-gray-200 animate-fadeIn" id="section-content-{{ $dayNumber }}" role="region"
+                            aria-labelledby="section-header-{{ $dayNumber }}">
                             @foreach ($reviews as $review)
                                 <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
                                     wire:key="word-{{ $review['vocabulary_word_id'] }}">

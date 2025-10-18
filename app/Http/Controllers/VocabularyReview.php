@@ -39,11 +39,31 @@ class VocabularyReview extends Component
 
     public function toggleSection($dayNumber)
     {
-        if (in_array($dayNumber, $this->openSections)) {
-            $this->openSections = array_diff($this->openSections, [$dayNumber]);
+        // Use array_flip for O(1) lookup performance instead of in_array O(n)
+        $openSectionsFlipped = array_flip($this->openSections);
+        
+        if (isset($openSectionsFlipped[$dayNumber])) {
+            // Remove from open sections
+            $this->openSections = array_values(array_diff($this->openSections, [$dayNumber]));
         } else {
+            // Add to open sections
             $this->openSections[] = $dayNumber;
         }
+    }
+
+    public function isSectionOpen($dayNumber)
+    {
+        return in_array($dayNumber, $this->openSections);
+    }
+
+    public function openAllSections()
+    {
+        $this->openSections = array_keys($this->groupedByDay);
+    }
+
+    public function closeAllSections()
+    {
+        $this->openSections = [];
     }
 
     public function removeWordFromList($wordId, $dayNumber)
