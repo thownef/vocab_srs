@@ -17,12 +17,40 @@
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                 {{ count($reviews) }} từ
                             </span>
-                            <button
-                                wire:click.stop="markGroup({{ json_encode(collect($reviews)->pluck('vocabulary_word_id')->toArray()) }}, {{ $dayNumber }})"
-                                wire:confirm="Bạn có chắc chắn đã nhớ tất cả {{ count($reviews) }} từ trong ngày {{ $dayNumber }}?"
-                                class="bg-green-600 text-white px-3 py-1.5 rounded text-xs hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                Đã nhớ tất cả
-                            </button>
+                            <div class="flex gap-2">
+                                <button
+                                    wire:click.stop="markGroupForgotten({{ json_encode(collect($reviews)->pluck('vocabulary_word_id')->toArray()) }}, {{ $dayNumber }})"
+                                    wire:confirm="Bạn có chắc chắn đã quên tất cả {{ count($reviews) }} từ trong ngày {{ $dayNumber }}? Tất cả từ sẽ được ôn lại từ đầu."
+                                    class="bg-red-600 text-white px-3 py-1.5 rounded text-xs hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50"
+                                    wire:loading.attr="disabled">
+                                    <span wire:loading.remove
+                                        wire:target="markGroupForgotten({{ json_encode(collect($reviews)->pluck('vocabulary_word_id')->toArray()) }}, {{ $dayNumber }})">
+                                        <i class="fas fa-times mr-1"></i>
+                                        Quên tất cả
+                                    </span>
+                                    <span wire:loading
+                                        wire:target="markGroupForgotten({{ json_encode(collect($reviews)->pluck('vocabulary_word_id')->toArray()) }}, {{ $dayNumber }})">
+                                        <i class="fas fa-spinner fa-spin mr-1"></i>
+                                        Đang xử lý...
+                                    </span>
+                                </button>
+                                <button
+                                    wire:click.stop="markGroup({{ json_encode(collect($reviews)->pluck('vocabulary_word_id')->toArray()) }}, {{ $dayNumber }})"
+                                    wire:confirm="Bạn có chắc chắn đã nhớ tất cả {{ count($reviews) }} từ trong ngày {{ $dayNumber }}?"
+                                    class="bg-green-600 text-white px-3 py-1.5 rounded text-xs hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:opacity-50"
+                                    wire:loading.attr="disabled">
+                                    <span wire:loading.remove
+                                        wire:target="markGroup({{ json_encode(collect($reviews)->pluck('vocabulary_word_id')->toArray()) }}, {{ $dayNumber }})">
+                                        <i class="fas fa-check mr-1"></i>
+                                        Đã nhớ tất cả
+                                    </span>
+                                    <span wire:loading
+                                        wire:target="markGroup({{ json_encode(collect($reviews)->pluck('vocabulary_word_id')->toArray()) }}, {{ $dayNumber }})">
+                                        <i class="fas fa-spinner fa-spin mr-1"></i>
+                                        Đang xử lý...
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 

@@ -111,6 +111,31 @@ class VocabularyReview extends Component
         session()->flash('success', 'Đã hoàn thành ôn tập nhóm!');
     }
 
+    public function markGroupForgotten($wordIds, $dayNumber)
+    {
+        $ids = collect($wordIds)
+            ->filter(fn($v) => is_numeric($v))
+            ->map(fn($v) => (int) $v)
+            ->unique()
+            ->values();
+
+        if ($ids->isEmpty()) {
+            session()->flash('success', 'Không có từ nào để cập nhật.');
+            return;
+        }
+
+        $words = VocabularyWord::whereIn('id', $ids)->get();
+        foreach ($words as $word) {
+            $this->vocabularyService->markForgotten($word);
+        }
+
+        // Remove all words in this day group
+        unset($this->groupedByDay[$dayNumber]);
+        $this->openSections = array_diff($this->openSections, [$dayNumber]);
+
+        session()->flash('success', 'Đã đánh dấu quên tất cả từ trong nhóm, sẽ ôn lại từ đầu!');
+    }
+
     public function render()
     {
         return view('vocabulary-review');
