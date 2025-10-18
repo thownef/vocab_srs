@@ -27,8 +27,8 @@ class VocabularyCreate extends Component
 
         $data = [
             'word' => $this->word,
-            'part_of_speech' => $this->partOfSpeech ?? null,
-            'pronunciation' => $this->pronunciation ?? null,
+            'part_of_speech' => $this->partOfSpeech ?: null,
+            'pronunciation' => $this->pronunciation ?: null,
             'meaning' => $this->meaning,
         ];
 
