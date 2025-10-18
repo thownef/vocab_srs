@@ -88,8 +88,7 @@
 
                                     <!-- Meaning section with toggle -->
                                     <div class="mt-3">
-                                        <button 
-                                            onclick="document.getElementById('meaning-{{ $review['vocabulary_word_id'] }}').classList.toggle('hidden')"
+                                        <button onclick="document.getElementById('meaning-{{ $review['vocabulary_word_id'] }}').classList.toggle('hidden')"
                                             class="text-blue-600 hover:text-blue-800 text-sm font-medium focus:outline-none">
                                             <i class="fas fa-eye mr-1"></i>
                                             Xem nghĩa
