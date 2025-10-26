@@ -64,8 +64,8 @@ php artisan key:generate
 # Create SQLite database file
 touch database/database.sqlite
 
-# Run migrations
-php artisan migrate
+# Reset db
+php artisan mongo:reset
 ```
 
 ### Step 5: Start the server
