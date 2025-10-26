@@ -24,7 +24,6 @@ class MySQLToMongo extends Command
             if ($ts) return new UTCDateTime($ts * 1000);
             return null;
         }
-        // $this->toMongoDate = fn($v) => toMongoDate($v);
 
         $this->info("Migrating vocabulary_words...");
         $wordIdMap = [];
