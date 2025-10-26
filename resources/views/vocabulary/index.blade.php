@@ -96,7 +96,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if ($word->part_of_speech)
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                        {{ $word->getPartOfSpeechLabel() }}
+                                        {{ $word->part_of_speech }}
                                     </span>
                                 @else
                                     <span class="text-gray-400 text-sm">-</span>
@@ -118,7 +118,7 @@
                                     <i class="fas fa-edit"></i>
                                     Sửa
                                 </a>
-                                <button wire:click="deleteWord({{ $word->id }})" wire:confirm="Bạn có chắc chắn muốn xóa từ này?"
+                                <button wire:click="deleteWord('{{ $word->_id }}')" wire:confirm="Bạn có chắc chắn muốn xóa từ này?"
                                     class="text-red-600 hover:text-red-900">
                                     <i class="fas fa-trash"></i>
                                     Xóa

@@ -21,7 +21,6 @@ class VocabularyWord extends Model
     ];
 
     protected $casts = [
-        'part_of_speech' => PartOfSpeech::class,
         'next_review_date' => 'date',
         'created_date' => 'date',
         'learning_day_number' => 'integer',
@@ -46,12 +45,5 @@ class VocabularyWord extends Model
     {
         if (!$pos) return $query;
         return $query->where('part_of_speech', $pos);
-    }
-
-    public function getPartOfSpeechLabel()
-    {
-        return $this->part_of_speech
-            ? PartOfSpeech::options()[$this->part_of_speech->value] ?? $this->part_of_speech->value
-            : null;
     }
 }
