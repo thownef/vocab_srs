@@ -55,7 +55,7 @@ class VocabularyIndex extends Component
     public function getWordsProperty()
     {
         return VocabularyWord::query()
-            ->search($this->search)
+            ->filterBySearch($this->search)
             ->partOfSpeech($this->partOfSpeech)
             ->orderByDesc('created_at')
             ->paginate($this->perPage);
@@ -68,7 +68,7 @@ class VocabularyIndex extends Component
 
     public function render()
     {
-        return view('vocabulary-index', [
+        return view('vocabulary.index', [
             'words' => $this->words,
             'partsOfSpeech' => $this->partsOfSpeech,
         ]);

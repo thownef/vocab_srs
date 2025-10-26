@@ -20,16 +20,36 @@ class VocabularySummary extends Component
     {
         $this->totalWords = VocabularyWord::count();
 
-        $countsByReview = VocabularyWord::query()
-            ->selectRaw('review_count, COUNT(*) as cnt')
-            ->groupBy('review_count')
-            ->pluck('cnt', 'review_count');
+        // MongoDB aggregation to count by review_count
+        $countsByReview = VocabularyWord::raw(function ($collection) {
+            return $collection->aggregate([
+                [
+                    '$group' => [
+                        '_id' => '$review_count',
+                        'cnt' => ['$sum' => 1]
+                    ]
+                ],
+                [
+                    '$project' => [
+                        'review_count' => '$_id',
+                        'cnt' => 1,
+                        '_id' => 0
+                    ]
+                ]
+            ]);
+        });
 
-        $zero = (int) ($countsByReview[0] ?? 0);
-        $one = (int) ($countsByReview[1] ?? 0);
-        $two = (int) ($countsByReview[2] ?? 0);
-        $three = (int) ($countsByReview[3] ?? 0);
-        $four = (int) ($countsByReview[4] ?? 0);
+        // Convert to array format
+        $countsByReviewArray = [];
+        foreach ($countsByReview as $item) {
+            $countsByReviewArray[$item['review_count']] = $item['cnt'];
+        }
+
+        $zero = (int) ($countsByReviewArray[0] ?? 0);
+        $one = (int) ($countsByReviewArray[1] ?? 0);
+        $two = (int) ($countsByReviewArray[2] ?? 0);
+        $three = (int) ($countsByReviewArray[3] ?? 0);
+        $four = (int) ($countsByReviewArray[4] ?? 0);
 
         $sumZeroToFour = $zero + $one + $two + $three + $four;
         $fivePlus = max(0, $this->totalWords - $sumZeroToFour);
@@ -55,6 +75,6 @@ class VocabularySummary extends Component
 
     public function render()
     {
-        return view('vocabulary-summary');
+        return view('vocabulary.summary');
     }
 }

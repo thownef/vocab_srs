@@ -41,7 +41,7 @@ class VocabularyReview extends Component
     {
         // Use array_flip for O(1) lookup performance instead of in_array O(n)
         $openSectionsFlipped = array_flip($this->openSections);
-        
+
         if (isset($openSectionsFlipped[$dayNumber])) {
             // Remove from open sections
             $this->openSections = array_values(array_diff($this->openSections, [$dayNumber]));
@@ -109,8 +109,6 @@ class VocabularyReview extends Component
     public function markGroup($wordIds, $dayNumber)
     {
         $ids = collect($wordIds)
-            ->filter(fn($v) => is_numeric($v))
-            ->map(fn($v) => (int) $v)
             ->unique()
             ->values();
 
@@ -119,7 +117,7 @@ class VocabularyReview extends Component
             return;
         }
 
-        $words = VocabularyWord::whereIn('id', $ids)->get();
+        $words = VocabularyWord::whereIn('_id', $ids)->get();
         foreach ($words as $word) {
             $this->vocabularyService->markReviewed($word);
         }
@@ -134,8 +132,6 @@ class VocabularyReview extends Component
     public function markGroupForgotten($wordIds, $dayNumber)
     {
         $ids = collect($wordIds)
-            ->filter(fn($v) => is_numeric($v))
-            ->map(fn($v) => (int) $v)
             ->unique()
             ->values();
 
@@ -144,7 +140,7 @@ class VocabularyReview extends Component
             return;
         }
 
-        $words = VocabularyWord::whereIn('id', $ids)->get();
+        $words = VocabularyWord::whereIn('_id', $ids)->get();
         foreach ($words as $word) {
             $this->vocabularyService->markForgotten($word);
         }
@@ -158,6 +154,6 @@ class VocabularyReview extends Component
 
     public function render()
     {
-        return view('vocabulary-review');
+        return view('vocabulary.review');
     }
 }

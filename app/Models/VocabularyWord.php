@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Enums\PartOfSpeech;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 class VocabularyWord extends Model
 {
+    protected $collection = 'vocabulary_words';
+
     protected $fillable = [
         'word',
         'part_of_speech',
@@ -23,19 +25,20 @@ class VocabularyWord extends Model
         'next_review_date' => 'date',
         'created_date' => 'date',
         'learning_day_number' => 'integer',
+        'review_count' => 'integer'
     ];
 
     public function reviewSchedules()
     {
-        return $this->hasMany(ReviewSchedule::class);
+        return $this->hasMany(ReviewSchedule::class, 'vocabulary_word_id', '_id');
     }
 
-    public function scopeSearch($query, ?string $term)
+    public function scopeFilterBySearch($query, ?string $term)
     {
         if (!$term) return $query;
         return $query->where(function ($q) use ($term) {
-            $q->where('word', 'like', "%{$term}%")
-                ->orWhere('meaning', 'like', "%{$term}%");
+            $q->where('word', 'regex', "/{$term}/i")
+                ->orWhere('meaning', 'regex', "/{$term}/i");
         });
     }
 

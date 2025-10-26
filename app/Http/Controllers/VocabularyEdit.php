@@ -59,7 +59,7 @@ class VocabularyEdit extends Component
 
     public function render()
     {
-        return view('vocabulary-edit', [
+        return view('vocabulary.edit', [
             'partsOfSpeech' => $this->partsOfSpeech,
         ]);
     }

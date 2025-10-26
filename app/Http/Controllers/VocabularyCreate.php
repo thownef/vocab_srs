@@ -47,7 +47,7 @@ class VocabularyCreate extends Component
 
     public function render()
     {
-        return view('vocabulary-create', [
+        return view('vocabulary.create', [
             'partsOfSpeech' => $this->partsOfSpeech,
         ]);
     }
