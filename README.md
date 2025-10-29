@@ -1,109 +1,174 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# 📚 Vocab SRS - Smart Vocabulary Learning
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+A vocabulary learning application with a customized **Spaced Repetition System (SRS)** to help you remember words longer and learn more effectively.
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## ✨ Features
 
-## Features
+- 🎯 **Custom SRS Algorithm**: Optimized review schedule (1h → 8h → 1 day → 3 days → 14 days → 30 days → 60 days)
+- 📝 **Vocabulary Management**: Add, edit, delete words with meaning, pronunciation, examples, images, and audio
+- 🔄 **Recovery Mode**: Automatic adjustment when you forget words
+- 📊 **Detailed Statistics**: Track your learning progress
+- 🎨 **Modern UI**: Beautiful interface with Ant Design
+- ⚡ **High Performance**: Next.js 15 + React Query + Supabase
+- 🎵 **Cambridge Audio Integration**: Automatic audio URL handling from Cambridge Dictionary
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+## 🚀 Quick Start
 
-## Demo
+### Prerequisites
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+- Node.js 18+
+- npm/yarn/pnpm
+- Supabase account (free tier available)
 
-## Deploy to Vercel
+### Installation
 
-Vercel deployment will guide you through creating a Supabase account and project.
+1. **Clone the repository**
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+```bash
+git clone <your-repo-url>
+cd vocab-srs
+```
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+2. **Install dependencies**
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+```bash
+npm install
+```
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+3. **Setup Supabase**
 
-## Clone and run locally
+- Create a new project at [supabase.com](https://supabase.com)
+- Copy your project URL and anon key from **Settings** → **API**
+- Run the database migration (SQL provided in project documentation)
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+4. **Configure environment variables**
 
-2. Create a Next.js app using the Supabase Starter template npx command
+Create `.env.local`:
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+5. **Start development server**
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+```bash
+npm run dev
+```
 
-3. Use `cd` to change into the app's directory
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-   ```bash
-   cd with-supabase-app
-   ```
+## 📖 How to Use
 
-4. Rename `.env.example` to `.env.local` and update the following:
+### Adding New Words
 
-  ```env
-  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
-  ```
-  > [!NOTE]
-  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
-  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
-  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
+1. Click "Add New Word" from the dashboard
+2. Fill in word information (word, meaning, pronunciation, example, image, audio)
+3. The system automatically schedules the first review after 1 hour
 
-  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
+### Reviewing Words
 
-5. You can now run the Next.js local development server:
+1. Click "Start Review" when words are due
+2. View the word → Click "Show Answer"
+3. Rate yourself as "Remember" or "Forgot"
+4. The system automatically calculates the next review time
 
-   ```bash
-   npm run dev
-   ```
+### SRS Review Schedule
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+- **Level 1**: Review after 1 hour
+- **Level 2**: Review after 8 hours
+- **Level 3**: Review after 1 day
+- **Level 4**: Review after 1 day (Round 2)
+- **Level 5**: Review after 3 days
+- **Level 6**: Review after 14 days
+- **Level 7**: Review after 30 days
+- **Level 8**: Review after 60 days
+- **Completed**: No more reviews needed
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+**Recovery Mode**: When you forget a word at high levels, the system schedules 1-hour reviews until you remember, then returns you to Level 4.
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+## 🧪 Testing
 
-## Feedback and issues
+```bash
+# Run tests
+npm test
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+# Test with UI
+npm run test:ui
 
-## More Supabase examples
+# Test coverage
+npm run test:coverage
+```
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+## 🎨 Code Quality
+
+```bash
+# Lint code
+npm run lint
+
+# Format code
+npm run format
+
+# Type check
+npm run type-check
+```
+
+## 📦 Build & Deploy
+
+### Production Build
+
+```bash
+npm run build
+npm start
+```
+
+### Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+1. Push code to GitHub
+2. Import to Vercel
+3. Add environment variables
+4. Deploy!
+
+## 🌟 Key Features Explained
+
+### Custom SRS Algorithm
+
+The application uses a scientifically-proven spaced repetition algorithm optimized for vocabulary learning. Words progress through 8 levels with increasing intervals.
+
+### Recovery Mode
+
+Forgot a word? Don't worry! The system automatically puts it in recovery mode, giving you frequent practice (every hour) until you remember it, then smoothly transitions back to the optimal schedule.
+
+### Cambridge Dictionary Integration
+
+Simply paste the audio path from Cambridge Dictionary (e.g., `/media/english/us_pron/...`), and the app automatically adds the domain for seamless audio playback.
+
+### Single-User Focused
+
+Designed for personal use without the complexity of multi-user authentication. Perfect for individual learners.
+
+## 📝 Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm start            # Start production server
+npm run lint         # Lint code
+npm run format       # Format code
+npm test             # Run tests
+npm run type-check   # TypeScript type checking
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+MIT
+
+---
+
+Made with ❤️ for language learners
