@@ -1,23 +1,15 @@
 "use client";
 
-import { Card, Row, Col, Statistic, Typography, List, Tag, Empty } from "antd";
-import { CheckCircleOutlined, CloseCircleOutlined, TrophyOutlined, CalendarOutlined } from "@ant-design/icons";
+import { Card, Row, Col, Statistic, Typography, List, Empty } from "antd";
+import { CheckCircleOutlined, TrophyOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
-import dayjs from "dayjs";
-import type { DashboardStats, ReviewHistory } from "@/lib/types";
+import type { DashboardStats } from "@/lib/types";
 
 const { Title } = Typography;
 
 async function fetchStats(): Promise<DashboardStats> {
   const res = await fetch("/api/stats");
   if (!res.ok) throw new Error("Failed to fetch");
-  return res.json();
-}
-
-async function fetchRecentHistory(): Promise<ReviewHistory[]> {
-  // Giả sử có API này, nếu chưa có thì có thể tạo
-  const res = await fetch("/api/review/history?limit=20");
-  if (!res.ok) return [];
   return res.json();
 }
 

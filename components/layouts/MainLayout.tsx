@@ -1,7 +1,7 @@
 "use client";
 
 import { Layout, Menu } from "antd";
-import { HomeOutlined, BookOutlined, ReadOutlined, BarChartOutlined } from "@ant-design/icons";
+import { HomeOutlined, BookOutlined, ReadOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { MenuProps } from "antd";
