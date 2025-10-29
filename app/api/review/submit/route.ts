@@ -2,7 +2,6 @@ import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 import { calculateNextReview } from "@/lib/srs/scheduler";
 
-// POST /api/review/submit
 export async function POST(request: Request) {
   const supabase = await createClient();
   const body = await request.json();
@@ -13,7 +12,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "vocabulary_id and remembered (boolean) are required" }, { status: 400 });
   }
 
-  // 1. Lấy learning_state hiện tại
   const { data: currentState, error: fetchError } = await supabase
     .from("learning_state")
     .select("*")
@@ -24,7 +22,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Learning state not found" }, { status: 404 });
   }
 
-  // 2. Tính toán next review
   const result = calculateNextReview(
     {
       level: currentState.level,
@@ -33,7 +30,6 @@ export async function POST(request: Request) {
     remembered
   );
 
-  // 3. Update learning_state
   const { error: updateError } = await supabase
     .from("learning_state")
     .update({
@@ -48,7 +44,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: updateError.message }, { status: 500 });
   }
 
-  // 4. Ghi lại history
   const { error: historyError } = await supabase.from("review_history").insert({
     vocabulary_id,
     level: currentState.level,
