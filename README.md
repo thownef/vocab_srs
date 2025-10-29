@@ -1,104 +1,109 @@
-# Smart Repeat - English Learning System with Spaced Repetition
+<a href="https://demo-nextjs-with-supabase.vercel.app/">
+  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
+  <h1 align="center">Next.js and Supabase Starter Kit</h1>
+</a>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Laravel-12.x-red.svg" alt="Laravel Version">
-  <img src="https://img.shields.io/badge/PHP-8.2+-blue.svg" alt="PHP Version">
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
+ The fastest way to build apps with Next.js and Supabase
 </p>
 
-## 📖 Introduction
+<p align="center">
+  <a href="#features"><strong>Features</strong></a> ·
+  <a href="#demo"><strong>Demo</strong></a> ·
+  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
+  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
+  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
+  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
+</p>
+<br/>
 
-Smart Repeat is a web application designed to help users learn English effectively using the **Spaced Repetition** method. Built with Laravel framework, it features a beautiful and user-friendly interface for managing vocabulary learning.
+## Features
 
-## 🎯 Key Features
-- **Add New Words**: Input vocabulary with meanings, pronunciation, and examples
-- **Edit & Delete**: Modify or remove existing vocabulary entries
-- **Search & Filter**: Find words by keyword or filter by part of speech
-- **Progress Tracking**: Monitor review count and next review dates
-- **Automatic Scheduling**: Uses spaced repetition algorithm for optimal learning
-- **Daily Reviews**: Shows words that need to be reviewed today
-- **Remember/Forgot**: Mark words as remembered or forgotten to adjust learning cycle
-- **Group Actions**: Mark multiple words at once for efficient review
+- Works across the entire [Next.js](https://nextjs.org) stack
+  - App Router
+  - Pages Router
+  - Middleware
+  - Client
+  - Server
+  - It just works!
+- supabase-ssr. A package to configure Supabase Auth to use cookies
+- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
+- Styling with [Tailwind CSS](https://tailwindcss.com)
+- Components with [shadcn/ui](https://ui.shadcn.com/)
+- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
+  - Environment variables automatically assigned to Vercel project
 
-### 🧠 Spaced Repetition Algorithm
-The application uses a scientifically-proven review schedule:
+## Demo
 
-**When learning a new word (Day 0) → you will review according to the following cycle:**
+You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
 
-- **Review 1**: Same day (morning learn – evening review) - **Day 0**
-- **Review 2**: After 1 day - **Day +1**
-- **Review 3**: After 3 days - **Day +3**
-- **Review 4**: After 7 days - **Day +7**
-- **Review 5**: After 14 days - **Day +14**
-- **Review 6**: After 30 days - **Day +30**
-- **Review 7**: After 90 days - **Day +90**
+## Deploy to Vercel
 
-**Forget Mechanism**: If you forget a word during any review, the system will reset the review cycle back to the current day, allowing you to start the learning process again from the beginning.
+Vercel deployment will guide you through creating a Supabase account and project.
 
-## 🚀 Installation & Setup
+After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
 
-### System Requirements
-- PHP >= 8.2
-- Composer
-- SQLite (or MySQL/PostgreSQL)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
 
-### Step 1: Clone the project
-```bash
-git clone <repository-url>
-cd smart_repeat
-```
+The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
 
-### Step 2: Install dependencies
-```bash
-composer install
-```
+If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
 
-### Step 3: Environment configuration
-```bash
-cp .env.example .env
-php artisan key:generate
-```
+## Clone and run locally
 
-### Step 4: Create database and run migrations
-```bash
-# Create SQLite database file
-touch database/database.sqlite
+1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
 
-# Run migrations
-php artisan migrate
-```
+2. Create a Next.js app using the Supabase Starter template npx command
 
-### Step 5: Start the server
-```bash
-php artisan serve
-```
+   ```bash
+   npx create-next-app --example with-supabase with-supabase-app
+   ```
 
-Access the application at: `http://localhost:8000`
+   ```bash
+   yarn create next-app --example with-supabase with-supabase-app
+   ```
 
-## 🔧 Technologies Used
+   ```bash
+   pnpm create next-app --example with-supabase with-supabase-app
+   ```
 
-- **Backend**: Laravel 12.x
-- **Database**: SQLite (can be changed to MySQL/PostgreSQL)
-- **Frontend**: Blade Templates + Tailwind CSS
-- **Icons**: Font Awesome
-- **PHP**: 8.2+
+3. Use `cd` to change into the app's directory
 
-## 🤝 Contributing
+   ```bash
+   cd with-supabase-app
+   ```
 
-We welcome contributions! Please:
+4. Rename `.env.example` to `.env.local` and update the following:
 
-1. Fork the project
-2. Create a feature branch (`git checkout -b feat/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feat/AmazingFeature`)
-5. Open a Pull Request
+  ```env
+  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
+  ```
+  > [!NOTE]
+  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
+  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
+  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
 
-## Acknowledgments
+  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
 
-- [Laravel](https://laravel.com) - Amazing framework
-- [Tailwind CSS](https://tailwindcss.com) - CSS framework
-- [Font Awesome](https://fontawesome.com) - Icons
+5. You can now run the Next.js local development server:
 
----
+   ```bash
+   npm run dev
+   ```
 
-**Smart Repeat** - Learn English intelligently with Spaced Repetition! 🧠📚
+   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+
+6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+
+> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+
+## Feedback and issues
+
+Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+
+## More Supabase examples
+
+- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
+- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
+- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
