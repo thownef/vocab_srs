@@ -4,6 +4,7 @@ import { Card, Button, Space, Typography, Tag, Divider } from "antd";
 import { EyeOutlined, CheckOutlined, CloseOutlined, SoundOutlined } from "@ant-design/icons";
 import type { ReviewItem } from "@/lib/types";
 import { playAudio } from "@/lib/utils/audio";
+import Image from "next/image";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -77,7 +78,7 @@ export default function ReviewCard({ vocabulary, showAnswer, onShowAnswer, onAns
         {/* Image */}
         {vocabulary.image_url && !showAnswer && (
           <div style={{ textAlign: "center", marginBottom: 24 }}>
-            <img src={vocabulary.image_url} alt={vocabulary.word} style={{ maxWidth: "100%", maxHeight: 200, borderRadius: 8 }} />
+            <Image src={vocabulary.image_url} alt={vocabulary.word} style={{ maxWidth: "100%", maxHeight: 200, borderRadius: 8 }} />
           </div>
         )}
 
@@ -93,13 +94,13 @@ export default function ReviewCard({ vocabulary, showAnswer, onShowAnswer, onAns
 
               {vocabulary.example_sentence && (
                 <Paragraph style={{ marginBottom: 0, fontSize: 16 }}>
-                  <Text italic>"{vocabulary.example_sentence}"</Text>
+                  <Text italic>&quot;{vocabulary.example_sentence}&quot;</Text>
                 </Paragraph>
               )}
 
               {vocabulary.image_url && (
                 <div style={{ marginTop: 16 }}>
-                  <img src={vocabulary.image_url} alt={vocabulary.word} style={{ maxWidth: "100%", maxHeight: 200, borderRadius: 8 }} />
+                  <Image src={vocabulary.image_url} alt={vocabulary.word} style={{ maxWidth: "100%", maxHeight: 200, borderRadius: 8 }} />
                 </div>
               )}
             </div>

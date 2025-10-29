@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, Button, Typography, Empty, Space, Progress, Result } from "antd";
+import { Button, Typography, Space, Progress, Result } from "antd";
 import { ReadOutlined, HomeOutlined } from "@ant-design/icons";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
