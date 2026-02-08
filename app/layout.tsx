@@ -3,6 +3,7 @@ import { Geist } from 'next/font/google';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider } from 'antd';
 import { QueryClientProvider } from '@/components/providers/QueryClientProvider';
+import { SessionProvider } from '@/components/providers/SessionProvider';
 import { MainLayout } from '@/components/layouts/MainLayout';
 import './globals.css';
 
@@ -30,20 +31,22 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <body className={`${geistSans.className} antialiased`}>
-        <AntdRegistry>
-          <ConfigProvider
-            theme={{
-              token: {
-                colorPrimary: '#1677ff',
-                borderRadius: 6,
-              },
-            }}
-          >
-            <QueryClientProvider>
-              <MainLayout>{children}</MainLayout>
-            </QueryClientProvider>
-          </ConfigProvider>
-        </AntdRegistry>
+        <SessionProvider>
+          <AntdRegistry>
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: '#1677ff',
+                  borderRadius: 6,
+                },
+              }}
+            >
+              <QueryClientProvider>
+                <MainLayout>{children}</MainLayout>
+              </QueryClientProvider>
+            </ConfigProvider>
+          </AntdRegistry>
+        </SessionProvider>
       </body>
     </html>
   );
