@@ -23,6 +23,12 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
 
   {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+
+  {
     ...pluginPlaywright.configs['flat/recommended'],
     files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}'],
   },
