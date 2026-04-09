@@ -1,21 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from '@/router/routes'
 
-import { useAppStore } from '@/stores/app'
+import { useGeneralStore } from '@/stores/general.store'
+import { LayoutEnum } from '@/shared/core/enums/layout.enum'
+import _ from 'lodash'
+import { nextTick } from 'vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
 
-router.beforeEach(() => {
-  const app = useAppStore()
-  app.startLoading()
+router.beforeEach(async (to, from, next) => {
+  next()
 })
 
-router.afterEach(() => {
-  const app = useAppStore()
-  app.stopLoading()
+router.afterEach(async (to) => {
+  await nextTick()
+  const currentRoute = _.head(to.matched)
+  const { onSetLayout, endLoading } = useGeneralStore()
+  const layout = (currentRoute?.meta.layout as string) || LayoutEnum.DEFAULT
+  onSetLayout(layout)
+  endLoading()
 })
 
 export default router
