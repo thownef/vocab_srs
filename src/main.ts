@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { pinia } from '@/stores/pinia'
 import { createHead } from '@unhead/vue/client'
 import { MotionPlugin } from '@vueuse/motion'
 
@@ -9,7 +9,7 @@ import '@/styles/main.css'
 
 const app = createApp(App)
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(createHead())
 app.use(MotionPlugin)

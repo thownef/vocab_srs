@@ -11,8 +11,8 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async (to, from, next) => {
-  next()
+router.beforeEach(async (to, from) => {
+  return true
 })
 
 router.afterEach(async (to) => {

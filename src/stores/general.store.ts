@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
-import { pinia } from '@/stores/pinia'
-import _ from 'lodash'
+import { ref } from 'vue'
 
 export const useGeneralStore = defineStore('general', () => {
   const isLoading = ref(false)
@@ -40,5 +38,3 @@ export const useGeneralStore = defineStore('general', () => {
     onSetLayout: handleSetLayout,
   }
 })
-
-export const generalStore = useGeneralStore(pinia)
