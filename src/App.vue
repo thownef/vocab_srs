@@ -1,6 +1,5 @@
 <template>
   <component class="app-wrapper" :is="layout" v-if="layout" />
-  <RouterView />
 </template>
 
 <script setup lang="ts">

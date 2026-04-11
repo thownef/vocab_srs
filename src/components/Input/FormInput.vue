@@ -20,6 +20,7 @@
         :placeholder="placeholder"
         :disabled="disabled"
         v-bind="attrs"
+        autocomplete="off"
         class="w-full rounded-2xl bg-[#F1F5F9] border-none outline-none transition-shadow duration-200"
         :class="[
           size === 'small' ? 'py-2' : size === 'middle' ? 'py-2.5' : 'py-3.5',

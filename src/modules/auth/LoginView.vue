@@ -6,7 +6,7 @@
     <div
       class="bg-white w-full max-w-6xl rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[500px]"
     >
-      <div class="lg:w-1/2 relative lg:min-h-full">
+      <div class="hidden lg:block lg:w-1/2 relative lg:min-h-full">
         <img
           src="@/assets/images/background-login.png"
           alt="Lexis Sanctuary"
