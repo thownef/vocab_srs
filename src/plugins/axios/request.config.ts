@@ -1,10 +1,11 @@
 import { decamelizeKeys } from 'humps'
 import Cookie from 'js-cookie'
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios'
+import { StorageKeyEnum } from '@/shared/core/enums/storage.enum'
 
 // Config Request Interceptor
 export const axiosInterceptorRequestConfig = (config: InternalAxiosRequestConfig) => {
-  const accessToken = Cookie.get('accessToken')
+  const accessToken = Cookie.get(StorageKeyEnum.ACCESS_TOKEN)
   if (accessToken) {
     config.headers['Authorization'] = `Bearer ${accessToken}`
   }

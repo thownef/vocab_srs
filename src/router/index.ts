@@ -17,9 +17,8 @@ router.beforeEach(async (to, from) => {
 
 router.afterEach(async (to) => {
   await nextTick()
-  const currentRoute = _.head(to.matched)
   const { onSetLayout, endLoading } = useGeneralStore()
-  const layout = (currentRoute?.meta.layout as string) || LayoutEnum.DEFAULT
+  const layout = (to.meta.layout as string) || LayoutEnum.DEFAULT
   onSetLayout(layout)
   endLoading()
 })

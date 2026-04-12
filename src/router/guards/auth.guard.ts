@@ -1,10 +1,11 @@
 import type { RouteLocationNormalized } from 'vue-router'
 import Cookie from 'js-cookie'
+import { StorageKeyEnum } from '@/shared/core/enums/storage.enum'
 import { useAuthStore } from '@/stores/auth.store'
 import AuthService from '@/shared/services/auth.service'
 
 export const AuthGuard = async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-  const accessToken = Cookie.get('accessToken')
+  const accessToken = Cookie.get(StorageKeyEnum.ACCESS_TOKEN)
   const authStore = useAuthStore()
 
   if (!accessToken) {

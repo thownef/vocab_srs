@@ -102,6 +102,8 @@ import { LayoutEnum } from '@/shared/core/enums/layout.enum'
 import { useGeneralStore } from '@/stores/general.store'
 import AuthService from '@/shared/services/auth.service'
 import Cookie from 'js-cookie'
+import { useHandleForm } from '@/shared/composables/useHandleForm'
+import { StorageKeyEnum } from '@/shared/core/enums/storage.enum'
 
 const { layout } = useGeneralStore()
 
@@ -112,19 +114,20 @@ useHead({
 
 const router = useRouter()
 
-const onSubmit = async (values: any) => {
-  try {
-    const response = await AuthService.login(values)
-    const { accessToken } = response.data.data
+const handleSubmit = (values: any) => AuthService.login(values)
 
-    if (accessToken) {
-      Cookie.set('accessToken', accessToken, { expires: 7 })
-      router.push('/')
-    }
-  } catch (error: any) {
-    console.error('Login failed:', error)
+const handleAfterSubmit = (data: any) => {
+  const { accessToken } = data.data
+  if (accessToken) {
+    Cookie.set(StorageKeyEnum.ACCESS_TOKEN, accessToken, { expires: 7 })
+    router.push('/')
   }
 }
+
+const { onSubmitForm: onSubmit } = useHandleForm({
+  onSubmit: handleSubmit,
+  fnAfterSubmit: handleAfterSubmit,
+})
 </script>
 
 <style scoped></style>

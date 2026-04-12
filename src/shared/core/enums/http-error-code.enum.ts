@@ -5,4 +5,6 @@ export enum HttpErrorCodeEnum {
   NOT_FOUND = 404,
   UNPROCESSABLE_CONTENT = 422,
   SERVER_ERROR = 500,
+  BAD_GATEWAY = 502,
+  GATEWAY_TIMEOUT = 504,
 }
