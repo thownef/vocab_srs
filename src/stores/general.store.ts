@@ -3,7 +3,6 @@ import { ref } from 'vue'
 
 export const useGeneralStore = defineStore('general', () => {
   const isLoading = ref(false)
-  const layout = ref()
 
   const startLoading = () => {
     isLoading.value = true
@@ -26,15 +25,9 @@ export const useGeneralStore = defineStore('general', () => {
     }
   }
 
-  const handleSetLayout = (layoutName: string) => {
-    layout.value = layoutName
-  }
-
   return {
     isLoading,
-    layout,
     startLoading,
     endLoading,
-    onSetLayout: handleSetLayout,
   }
 })

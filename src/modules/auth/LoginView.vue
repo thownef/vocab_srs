@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="layout === LayoutEnum.AUTH"
-    class="min-h-screen bg-[#F1F5F9] flex items-center justify-center p-4 lg:p-8"
-  >
+  <div class="min-h-screen bg-[#F1F5F9] flex items-center justify-center p-4 lg:p-8">
     <div
       class="bg-white w-full max-w-6xl rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[500px]"
     >
@@ -98,14 +95,10 @@ import { Form } from 'vee-validate'
 import { loginSchema } from '@/modules/auth/core/config/form/signin-form'
 import { Mail, Lock } from 'lucide-vue-next'
 import FormInput from '@/components/Input/FormInput.vue'
-import { LayoutEnum } from '@/shared/core/enums/layout.enum'
-import { useGeneralStore } from '@/stores/general.store'
 import AuthService from '@/shared/services/auth.service'
 import Cookie from 'js-cookie'
 import { useHandleForm } from '@/shared/composables/useHandleForm'
 import { StorageKeyEnum } from '@/shared/core/enums/storage.enum'
-
-const { layout } = useGeneralStore()
 
 useHead({
   title: 'Login',

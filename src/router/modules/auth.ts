@@ -1,21 +1,19 @@
 import type { RouteRecordRaw } from 'vue-router'
-import { LayoutEnum } from '@/shared/core/enums/layout.enum'
 import { ResolveGuard } from '@/router/guards'
 import { GuestGuard } from '@/router/guards/guest.guard'
+import { PageEnum, PagePath } from '@/shared/core/enums/page.enum'
 
 export const authRoutes: RouteRecordRaw[] = [
   {
-    path: '/login',
-    name: 'login',
+    path: PagePath.LOGIN,
+    name: PageEnum.LOGIN,
     component: () => import('@/modules/auth/LoginView.vue'),
-    meta: { layout: LayoutEnum.AUTH },
     beforeEnter: ResolveGuard([GuestGuard]),
   },
   {
-    path: '/register',
-    name: 'register',
+    path: PagePath.REGISTER,
+    name: PageEnum.REGISTER,
     component: () => import('@/modules/auth/RegisterView.vue'),
-    meta: { layout: LayoutEnum.AUTH },
     beforeEnter: ResolveGuard([GuestGuard]),
   },
 ]
