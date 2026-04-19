@@ -99,6 +99,7 @@ import AuthService from '@/shared/services/auth.service'
 import Cookie from 'js-cookie'
 import { useHandleForm } from '@/shared/composables/useHandleForm'
 import { StorageKeyEnum } from '@/shared/core/enums/storage.enum'
+import { PageEnum } from '@/shared/core/enums/page.enum'
 
 useHead({
   title: 'Login',
@@ -113,7 +114,7 @@ const handleAfterSubmit = (data: any) => {
   const { accessToken } = data.data
   if (accessToken) {
     Cookie.set(StorageKeyEnum.ACCESS_TOKEN, accessToken, { expires: 7 })
-    router.push('/')
+    router.push({ name: PageEnum.DASHBOARD })
   }
 }
 
