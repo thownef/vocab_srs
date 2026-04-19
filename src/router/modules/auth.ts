@@ -7,13 +7,13 @@ export const authRoutes: RouteRecordRaw[] = [
   {
     path: PagePath.LOGIN,
     name: PageEnum.LOGIN,
-    component: () => import('@/modules/auth/LoginView.vue'),
+    component: () => import('@/modules/auth/LoginPage.vue'),
     beforeEnter: ResolveGuard([GuestGuard]),
   },
   {
     path: PagePath.REGISTER,
     name: PageEnum.REGISTER,
-    component: () => import('@/modules/auth/RegisterView.vue'),
+    component: () => import('@/modules/auth/RegisterPage.vue'),
     beforeEnter: ResolveGuard([GuestGuard]),
   },
 ]
